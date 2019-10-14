@@ -1,0 +1,4 @@
+ofxDatGui
+ofxJSON
+ofxOsc
+ofxSyphon
