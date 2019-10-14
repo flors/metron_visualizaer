@@ -1,0 +1,157 @@
+{
+   "motors" : [
+      {
+         "limitLeft" : "135",
+         "limitRight" : "37"
+      },
+      {
+         "limitLeft" : "119",
+         "limitRight" : "44"
+      },
+      {
+         "limitLeft" : "155",
+         "limitRight" : "60"
+      },
+      {
+         "limitLeft" : "20",
+         "limitRight" : "110"
+      },
+      {
+         "limitLeft" : "11",
+         "limitRight" : "107"
+      },
+      {
+         "limitLeft" : "5",
+         "limitRight" : "103"
+      },
+      {
+         "limitLeft" : "13",
+         "limitRight" : "159"
+      },
+      {
+         "limitLeft" : "12",
+         "limitRight" : "100"
+      },
+      {
+         "limitLeft" : "25",
+         "limitRight" : "119"
+      },
+      {
+         "limitLeft" : "130",
+         "limitRight" : "32"
+      },
+      {
+         "limitLeft" : "30",
+         "limitRight" : "123"
+      },
+      {
+         "limitLeft" : "175",
+         "limitRight" : "86"
+      },
+      {
+         "limitLeft" : "5",
+         "limitRight" : "104"
+      },
+      {
+         "limitLeft" : "10",
+         "limitRight" : "98"
+      },
+      {
+         "limitLeft" : "10",
+         "limitRight" : "100"
+      },
+      {
+         "limitLeft" : "15",
+         "limitRight" : "100"
+      },
+      {
+         "limitLeft" : "5",
+         "limitRight" : "93"
+      },
+      {
+         "limitLeft" : "2",
+         "limitRight" : "88"
+      },
+      {
+         "limitLeft" : "2",
+         "limitRight" : "90"
+      },
+      {
+         "limitLeft" : "5",
+         "limitRight" : "92"
+      },
+      {
+         "limitLeft" : "0",
+         "limitRight" : "89"
+      },
+      {
+         "limitLeft" : "105",
+         "limitRight" : "16"
+      },
+      {
+         "limitLeft" : "105",
+         "limitRight" : "15"
+      },
+      {
+         "limitLeft" : "2",
+         "limitRight" : "98"
+      },
+      {
+         "limitLeft" : "52",
+         "limitRight" : "138"
+      },
+      {
+         "limitLeft" : "6",
+         "limitRight" : "90"
+      },
+      {
+         "limitLeft" : "8",
+         "limitRight" : "105"
+      },
+      {
+         "limitLeft" : "35",
+         "limitRight" : "124"
+      },
+      {
+         "limitLeft" : "130",
+         "limitRight" : "18"
+      },
+      {
+         "limitLeft" : "10",
+         "limitRight" : "115"
+      },
+      {
+         "limitLeft" : "147",
+         "limitRight" : "55"
+      },
+      {
+         "limitLeft" : "148",
+         "limitRight" : "60"
+      },
+      {
+         "limitLeft" : "7",
+         "limitRight" : "93"
+      },
+      {
+         "limitLeft" : "5",
+         "limitRight" : "90"
+      },
+      {
+         "limitLeft" : "94",
+         "limitRight" : "5"
+      },
+      {
+         "limitLeft" : "13",
+         "limitRight" : "95"
+      },
+      {
+         "limitLeft" : "155",
+         "limitRight" : "70"
+      },
+      {
+         "limitLeft" : "16",
+         "limitRight" : "105"
+      }
+   ]
+}
+
