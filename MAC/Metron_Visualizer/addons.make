@@ -1,4 +1,0 @@
-ofxDatGui
-ofxJSON
-ofxOsc
-ofxSyphon
