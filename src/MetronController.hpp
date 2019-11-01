@@ -27,9 +27,13 @@ class MetronController{
     void update();
     void motorsCallibrationOSC();
     void receiveOSC();
+    void generateBoxes();
     vector <MetronBox> metronBoxes;
     ofxOscReceiver receive;
     ofxOscSender sender;
+    int xSizeMetron;
+    int ySizeMetron;
+    int totalBoxes;
     
     private:
 
@@ -39,6 +43,10 @@ class MetronController{
     float oscValueLight1;
     float oscValueLight2;
     float oscValueLight3;
+  
+    int nRows;
+    int nColumns;
+   
 };
 
 #endif /* MetronController_hpp */

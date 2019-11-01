@@ -25,7 +25,7 @@ class MetronBox{
     void turnLightsOn();
     void turnLightsOff();
     void addNewBox();
-    bool checkBoundingBox(int x, int y);
+    void checkStickCollision(float angle);
     void callibrateBox(bool callibrate);
     Stick stick;
     bool myStripBoxOn;

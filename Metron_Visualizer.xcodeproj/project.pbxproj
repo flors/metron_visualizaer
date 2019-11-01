@@ -902,13 +902,13 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				ACC0939468C06278B45E4FDA /* Strip.cpp */,
-				0D49DC4FCC1A42F4A798306D /* MetronBox.hpp */,
-				AA5BD797AE279E6C77EE60B8 /* MetronController.hpp */,
-				60AE99060D0750BA0D972B48 /* Stick.hpp */,
 				904FFB1F2C3A12E5D7E78568 /* MetronBox.cpp */,
+				0D49DC4FCC1A42F4A798306D /* MetronBox.hpp */,
 				C5C54E01C0A130155DD3728A /* MetronController.cpp */,
+				AA5BD797AE279E6C77EE60B8 /* MetronController.hpp */,
 				387F6A23E52CED48AF3337FF /* Stick.cpp */,
+				60AE99060D0750BA0D972B48 /* Stick.hpp */,
+				ACC0939468C06278B45E4FDA /* Strip.cpp */,
 				C5B6B6A7EED1FFF368EE254C /* Strip.hpp */,
 			);
 			path = src;
@@ -1093,6 +1093,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -1154,7 +1155,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1215,6 +1215,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -1275,6 +1276,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -1335,7 +1337,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1395,7 +1396,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (

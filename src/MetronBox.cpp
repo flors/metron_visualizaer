@@ -52,7 +52,7 @@ void MetronBox::update(float lightLeft, float lightRight, float lightCenterLeft,
     
 }
 
-void MetronBox::saveLightValues(float lightLeft, float lightRight, float lightCenterLeft, float lightCenterRight){
+/*void MetronBox::saveLightValues(float lightLeft, float lightRight, float lightCenterLeft, float lightCenterRight){
     
     if(myStripLeftOn){
         myStripLeft.saveLightBrightness(lightLeft);
@@ -71,22 +71,30 @@ void MetronBox::saveLightValues(float lightLeft, float lightRight, float lightCe
     }else{
         myStripBox.saveLightBrightness(0);
     }
-}
+}*/
 
 void MetronBox::updateStickAngle(float angle){
     stick.setAngle(angle);
+    checkStickCollision(angle);
 }
 
-bool MetronBox::checkBoundingBox(int x, int y){
+void MetronBox::checkStickCollision(float angle){
+    //cout << "Box: " << boxID << endl;
     
-    if( x < boxPosX + boxSize/2 && x > boxPosX - boxSize/2 && y > boxPosY - boxSize && y < boxPosY){
-        cout << "in box!" << endl;
-        return true;
+    if(angle > 85){
+        myStripRight.saveLightBrightness(1);
+    }else if(angle > 40 && angle < 50){
+        myStripBox.saveLightBrightness(1);
+        
+    }else if (angle < 5){
+        myStripLeft.saveLightBrightness(1);
+    }else{
+        myStripBox.saveLightBrightness(0);
+        myStripRight.saveLightBrightness(0);
+        myStripLeft.saveLightBrightness(0);
     }
-    
-    return false;
-    
 }
+
 
 void MetronBox::callibrateBox(bool callibrate){
    

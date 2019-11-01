@@ -7,29 +7,60 @@
 void ofApp::setupGui(){
     
     ofBackground(0);
-           metronController.setup();
-         
-           
-           
-           //Syphon
-           mainOutputSyphonServer.setName("Screen Output");
-           individualTextureSyphonServer.setName("Texture Output");
-           
-           mClient.setup();
-           
-           //using Syphon app Simple Server, found at http://syphon.v002.info/
-           mClient.set("","Simple Server");
-           tex.allocate(200, 100, GL_RGBA);
-           ofSetFrameRate(60);
-           
-           
-           //JSON
-           std::string file = "callibration.json";
-           
-           // Now parse the JSON
-           bool parsingSuccessful = result.open(file);
-    
-    
+       //GUI
+       int x = 20;
+       int y = 20;
+       int p = 200;
+       int incY = 10;
+       metronController.setup();
+       ofxDatGuiComponent* component;
+       
+        
+       metronMatrix = new ofxDatGuiMatrix("Metron boxes", metronController.totalBoxes, true);
+       metronMatrix->setPosition(x, y);
+       metronMatrix->setRadioMode(true);
+       metronMatrix->onMatrixEvent(this, &ofApp::onMatrixEvent);
+       component = metronMatrix;
+       components.push_back(component);//components[0]
+       
+       x += component->getHeight() + p;
+       y += incY;
+       mySliderLeft = new ofxDatGuiSlider("slider left", 0, 180, 0);
+       mySliderLeft->setPosition(x, y);
+       mySliderLeft->setPrecision(0);
+       mySliderLeft->onSliderEvent(this, &ofApp::onSliderEventLeft);
+       component = mySliderLeft;
+       components.push_back(component);//components[1]
+       
+       y += component->getHeight() + incY;
+       mySliderRight = new ofxDatGuiSlider("slider right", 0, 180, 0);
+       mySliderRight->setPosition(x, y);
+       mySliderRight->setPrecision(0);
+       mySliderRight->onSliderEvent(this, &ofApp::onSliderEventRight);
+       component = mySliderRight;
+       components.push_back(component);//components[2]
+       
+       
+       y += component->getHeight() + incY;
+       component = new ofxDatGuiButton("Send");
+       component->setPosition(x, y);
+       component->onButtonEvent(this, &ofApp::onButtonSendEvent);
+       components.push_back(component);//components[3]
+       
+       y += component->getHeight() + incY + 50;
+       component = new ofxDatGuiButton("End callibration");
+       component->setPosition(270, y);
+       component->onButtonEvent(this, &ofApp::onButtonEndEvent);
+       components.push_back(component);//components[4]
+       
+       callibrateBtn = new ofxDatGuiButton("Callibrate");
+       callibrateBtn->setPosition(20, 20);
+       callibrateBtn->onButtonEvent(this, &ofApp::onButtonCallibrateEvent);
+       component = callibrateBtn;
+       components.push_back(component);//components[5]
+       
+       
+       indexMotorSelected = -1;
     
 }
    
@@ -38,60 +69,25 @@ void ofApp::setupGui(){
 
 
 void ofApp::setup(){
-    ofBackground(0);
-    //GUI
-    int x = 20;
-    int y = 20;
-    int p = 200;
-    int incY = 10;
+   ofBackground(0);
+       
+    //Syphon
+    mainOutputSyphonServer.setName("Screen Output");
+    individualTextureSyphonServer.setName("Texture Output");
     
-    ofxDatGuiComponent* component;
+    mClient.setup();
     
-    metronMatrix = new ofxDatGuiMatrix("Metron boxes", 38, true);
-    metronMatrix->setPosition(x, y);
-    metronMatrix->setRadioMode(true);
-    metronMatrix->onMatrixEvent(this, &ofApp::onMatrixEvent);
-    component = metronMatrix;
-    components.push_back(component);//components[0]
-    
-    x += component->getHeight() + p;
-    y += incY;
-    mySliderLeft = new ofxDatGuiSlider("slider left", 0, 180, 0);
-    mySliderLeft->setPosition(x, y);
-    mySliderLeft->setPrecision(0);
-    mySliderLeft->onSliderEvent(this, &ofApp::onSliderEventLeft);
-    component = mySliderLeft;
-    components.push_back(component);//components[1]
-    
-    y += component->getHeight() + incY;
-    mySliderRight = new ofxDatGuiSlider("slider right", 0, 180, 0);
-    mySliderRight->setPosition(x, y);
-    mySliderRight->setPrecision(0);
-    mySliderRight->onSliderEvent(this, &ofApp::onSliderEventRight);
-    component = mySliderRight;
-    components.push_back(component);//components[2]
+    //using Syphon app Simple Server, found at http://syphon.v002.info/
+    mClient.set("","Simple Server");
+    tex.allocate(200, 100, GL_RGBA);
+    ofSetFrameRate(60);
     
     
-    y += component->getHeight() + incY;
-    component = new ofxDatGuiButton("Send");
-    component->setPosition(x, y);
-    component->onButtonEvent(this, &ofApp::onButtonSendEvent);
-    components.push_back(component);//components[3]
+    //JSON
+    std::string file = "callibration.json";
     
-    y += component->getHeight() + incY + 50;
-    component = new ofxDatGuiButton("End callibration");
-    component->setPosition(270, y);
-    component->onButtonEvent(this, &ofApp::onButtonEndEvent);
-    components.push_back(component);//components[4]
-    
-    callibrateBtn = new ofxDatGuiButton("Callibrate");
-    callibrateBtn->setPosition(20, 20);
-    callibrateBtn->onButtonEvent(this, &ofApp::onButtonCallibrateEvent);
-    component = callibrateBtn;
-    components.push_back(component);//components[5]
-    
-    
-    indexMotorSelected = -1;
+    // Now parse the JSON
+    bool parsingSuccessful = result.open(file);
        
 
 }
@@ -102,49 +98,61 @@ void ofApp::setup(){
 void ofApp::update(){
     metronController.receiveOSC();
     metronController.update();
-    for(int i=0; i<components.size(); i++) components[i]->update();
+    
 }
 
 //--------------------------------------------------------------
 
 void ofApp::drawGui(ofEventArgs & args){
-    metronController.draw();
     
-    // Syphon Stuff
-    //ofSetColor(255, 255, 255, 255);
-    mClient.draw(50, 50);
+    if(indexMotorSelected != -1){
+           std::string text;
+           int auxMotor = indexMotorSelected;
+           text.append("Callibrating motor ");
+           text.append(to_string (auxMotor+1));
+           ofDrawBitmapString(text, 420,520);
+           components[0]->draw();
+           for(int i=1; i<components.size()-1; i++) components[i]->draw();
+       }else{
+           components[components.size()-1]->draw();
+       }
     
-    mainOutputSyphonServer.publishScreen();
-    
-    individualTextureSyphonServer.publishTexture(&tex);
-    
-    //ofDrawBitmapString("Note this text is not captured by Syphon since it is drawn after publishing.\nYou can use this to hide your GUI for example.", 150,500);
-    
-    for (int i = 0; i<  metronController.metronBoxes.size(); i++) {
-          metronController.metronBoxes[i].stick.draw();
-      }
+  for(int i=0; i<components.size(); i++) components[i]->update();
 }
 
 void ofApp::draw(){
-    
-    if(indexMotorSelected != -1){
-        std::string text;
-        int auxMotor = indexMotorSelected;
-        text.append("Callibrating motor ");
-        text.append(to_string (auxMotor+1));
-        ofDrawBitmapString(text, 420,520);
-        components[0]->draw();
-        for(int i=1; i<components.size()-1; i++) components[i]->draw();
-    }else{
-        components[components.size()-1]->draw();
-    }
-    
-    
+    metronController.draw();
+      
+      
+      for (int i = 0; i<  metronController.metronBoxes.size(); i++) {
+          metronController.metronBoxes[i].stick.draw();
+      }
+      
+      // Syphon Stuff
+      //ofSetColor(255, 255, 255, 255);
+      mClient.draw(50, 50);
+      
+      mainOutputSyphonServer.publishScreen();
+      
+      individualTextureSyphonServer.publishTexture(&tex);
+      
+      //ofDrawBitmapString("Note this text is not captured by Syphon since it is drawn after publishing.\nYou can use this to hide your GUI for example.", 150,500); 
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+    switch (key) {
+        case 'r':
+            cout << "`r` pressed - fs: ";
+            //metronController.xSizeMetron;
+            ofSetWindowShape(metronController.xSizeMetron, metronController.ySizeMetron);
+            break;
+        default:
+            cout << "invalid key" << endl;
+            break;
+    }
     
 }
 

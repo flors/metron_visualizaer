@@ -16,52 +16,51 @@ void MetronController::setup(){
     receive.setup(PORT_R);
     sender.setup(HOST, PORT_S);
     //metronBox.setup(ofGetWidth()/2, ofGetHeight()/2);
-    int posXAux = 75;
-    int posYAux = 150;
+    
+    nRows = 5;
+    nColumns = 15;
+    
+    generateBoxes();
+   
+}
+
+void MetronController::generateBoxes(){
+    int incX = 75;
+    int incY = 1;
+   
+    int posY = incY; //reset heihgt
+   
     int id = 1;
+   
+
+   totalBoxes = ((nColumns*nRows)+1)/2;
+   cout << "total boxes: "<< totalBoxes << endl;
+   
+   MetronBox tempBox;
+       
+   int y = 0;
+   while(y < totalBoxes){
+       if (y%nRows == (nRows+1)/2){
+           incX += 75;
+           incY = 225;
+       }
+       
+       if(y%nRows == 0){
+           incX += 75;
+           incY = 150;
+       }
+       
+       MetronBox tempBox;
+       tempBox.setup(incX, incY, 80, id);
+       metronBoxes.push_back(tempBox);
+       id++;
+       y++;
+       incY += 150;
+   }
+
+    xSizeMetron = incX + 150;
+    ySizeMetron = incY - 115;
     
-    MetronBox tempBox;
-    for(int columns = 0; columns < 7; columns++ ){
-        //Draw column of three boxes
-        for (int i = 1; i<4; i++) {
-            MetronBox tempBox;
-            tempBox.setup(posXAux, i*posYAux, 80, id);
-            metronBoxes.push_back(tempBox);
-            id++;
-        }
-        
-        //Draw column of two boxes
-        //Move to right and down
-        posXAux += 75;//154
-        posYAux = 225;
-        
-        //Caja 4
-        id++;
-        tempBox.setup(posXAux, posYAux, 80, id);
-        metronBoxes.push_back(tempBox);
-        
-        //Caja 5
-        id++;
-        posYAux = 375;
-        tempBox.setup(posXAux, posYAux, 80, id);
-        metronBoxes.push_back(tempBox);
-        
-        //Move right and up
-        posXAux += 75;
-        posYAux = 150;
-        
-        id++;
-    }
-    
-    //Draw last 3 boxes
-    //posXAux += 75;
-    posYAux = 150;
-    id++;
-    for (int i = 1; i<4; i++) {
-        tempBox.setup(posXAux,i*posYAux, 80, id);
-        metronBoxes.push_back(tempBox);
-        id++;
-    }
 }
 
 void MetronController::receiveOSC(){
@@ -70,6 +69,17 @@ void MetronController::receiveOSC(){
     {
         ofxOscMessage m;
         receive.getNextMessage( &m );
+        
+        
+        if(m.getAddress() == "/nRows"){
+            cout << "nRows: " << m.getArgAsFloat(0)<< "." << endl;
+            nRows = m.getArgAsFloat(0);
+        }
+        
+        if(m.getAddress() == "/nColumns"){
+            cout << "nColumns: " << m.getArgAsFloat(0)<< "." << endl;
+            nColumns = m.getArgAsFloat(0);
+        }
         
         if(m.getAddress() ==  "/laterales"){
           cout << "Reveiving OSC: " << m.getArgAsFloat(0)<< "." << endl;
@@ -115,7 +125,7 @@ void MetronController::receiveOSC(){
             
         }
         
-        if(m.getAddress() == "/caja1"){
+        /*if(m.getAddress() == "/caja1"){
             metronBoxes[0].saveLightValues( m.getArgAsFloat(1), m.getArgAsFloat(0), m.getArgAsFloat(3),m.getArgAsFloat(2));
         }
         if(m.getAddress() == "/caja2"){
@@ -229,7 +239,7 @@ void MetronController::receiveOSC(){
         }
         if(m.getAddress() == "/caja38"){
             metronBoxes[37].saveLightValues( m.getArgAsFloat(1), m.getArgAsFloat(0), m.getArgAsFloat(3),m.getArgAsFloat(2));
-        }
+        }*/
     }
 }
 
